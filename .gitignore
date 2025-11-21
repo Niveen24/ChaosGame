@@ -1,3 +1,10 @@
+# Ignore Visual Studio cache
+.vs/
+*.slnx
+*.vsidx
+*.db
+*.opendb
+
 # Prerequisites
 *.d
 
