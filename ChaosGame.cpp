@@ -19,7 +19,7 @@ int main()
 
 	//background 
 	Texture background;
-	background.loadFromFile("images/purple.jpg");
+	background.loadFromFile("textures/purple.jpg");
 	Sprite bg;
 	bg.setTexture(background);
 
@@ -38,6 +38,8 @@ int main()
 
     while (window.isOpen())
     {
+        window.draw(bg);
+
         //input section****
         
         Event event;
@@ -79,7 +81,7 @@ int main()
 
 		//update section****
 
-        int ppf = 35;
+        int ppf = 150;
 
         if (points.size() > 0) {
             for (int i = 0; i < ppf; i++) {
@@ -105,8 +107,6 @@ int main()
             window.draw(rect);
         }
 
-		//draw background
-		window.draw(bg);
         //draw title before display
         window.draw(title);
         window.draw(instructions);
