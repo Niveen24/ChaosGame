@@ -17,20 +17,25 @@ int main()
     vector<Vector2f> vertices;
     vector<Vector2f> points;
 
-	//background 
+//background 
 	Texture background;
-	background.loadFromFile("textures/purple.jpg");
+	background.loadFromFile("textures/sp7.png");
 	Sprite bg;
 	bg.setTexture(background);
-
+    float scaleX = 1920.0f / background.getSize().x;
+    float scaleY = 1080.0f / background.getSize().y;
+	float scale = max(scaleX, scaleY);
+	bg.setScale(scale, scale);
+	bg.setPosition((1920 - background.getSize().x * scale) / 2, (1080 - background.getSize().y * scale) / 2);
+//font
 	Font font;
 	font.loadFromFile("fonts/f3.ttf"); //insert font here
-    //text object for title
+//text object for title
 	Text title("CHAOS", font, 70);
 	title.setOrigin(title.getLocalBounds().width / 2, title.getLocalBounds().height / 2);
 	title.setPosition(window.getSize().x / 2, 40);
-	title.setFillColor(Color::White);
-	//text object for instructions
+    title.setFillColor(Color::White);
+//text object for instructions
 	Text instructions("Click 3 points to set as vertices", font, 10);
 	instructions.setOrigin(instructions.getLocalBounds().width / 2, instructions.getLocalBounds().height / 2);
 	instructions.setPosition(window.getSize().x / 2, 100);
@@ -38,10 +43,8 @@ int main()
 
     while (window.isOpen())
     {
-        window.draw(bg);
-
         //input section****
-        
+
         Event event;
 
         while (window.pollEvent(event))
@@ -95,6 +98,7 @@ int main()
 		//draw section****
 
         window.clear();
+        window.draw(bg); //load background first so it shows
 
         for (int i = 0; i < vertices.size(); i++)
         {
@@ -102,7 +106,7 @@ int main()
 
             rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
 
-            rect.setFillColor(Color::Magenta);
+            rect.setFillColor(Color::White);
 
             window.draw(rect);
         }
@@ -115,15 +119,10 @@ int main()
         {
             CircleShape circle(1);
             circle.setPosition(points[i].x, points[i].y);
-            circle.setFillColor(Color::White);
+            circle.setFillColor(Color::Red);
             window.draw(circle);
 		}
 
-
-        ///TODO:  Draw points
-
         window.display();
-
     }
-
 }
