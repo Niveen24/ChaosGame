@@ -84,14 +84,16 @@ int main()
 
 		//update section****
 
-        int ppf = 150;
+        int ppf = 150; //sets num of points to update per frame
 
-        if (points.size() > 0) {
-            for (int i = 0; i < ppf; i++) {
-                Vector2f randomVertex = vertices[rand() % vertices.size()];
-                Vector2f lastPoint = points.back();
-				Vector2f newPoint = (lastPoint + randomVertex) / 2.0f;
-                points.push_back(newPoint);
+        if (points.size() > 0) //so it only runs this after 4th click
+        {
+            for (int i = 0; i < ppf; i++) //repeats body code ppf times per update
+            {
+                Vector2f randomVertex = vertices[rand() % vertices.size()]; //gets random vertices from vector
+                Vector2f lastPoint = points.back(); //gets last point generated
+				Vector2f newPoint = (lastPoint + randomVertex) / 2.0f; //gets midpoint of the rand vertice and last vertice
+                points.push_back(newPoint); //stores new point to be drawn
             }
         }
 
@@ -100,11 +102,11 @@ int main()
         window.clear();
         window.draw(bg); //load background first so it shows
 
-        for (int i = 0; i < vertices.size(); i++)
+        for (int i = 0; i < vertices.size(); i++) 
         {
-            RectangleShape rect(Vector2f(10, 10));
+            RectangleShape rect(Vector2f(5, 5)); //makes rectangle 10x10 to mark each pt clicked
 
-            rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
+            rect.setPosition(Vector2f(vertices[i].x, vertices[i].y)); //puts rect at the vertices coords
 
             rect.setFillColor(Color::White);
 
@@ -115,10 +117,10 @@ int main()
         window.draw(title);
         window.draw(instructions);
 		//draw points
-        for (int i = 0; i < points.size(); i++)
+        for (int i = 0; i < points.size(); i++) //loops through all points
         {
-            CircleShape circle(1);
-            circle.setPosition(points[i].x, points[i].y);
+            CircleShape circle(1); //makes 1pxl circle to mark each point
+            circle.setPosition(points[i].x, points[i].y); //positions the pixel at the point coords
             circle.setFillColor(Color::Red);
             window.draw(circle);
 		}
